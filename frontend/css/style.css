@@ -1,0 +1,66 @@
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Dark mode basic variables setup */
+html[data-bs-theme="dark"] body {
+    background-color: #121212 !important;
+}
+
+/* Note Cards Styling */
+.note-card {
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.125);
+    background-color: var(--bs-body-bg);
+}
+
+.note-card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+    border-color: rgba(0,0,0,0.2);
+}
+
+.note-card-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--bs-body-color);
+}
+
+.note-card-content {
+    color: var(--bs-secondary-color);
+    font-size: 0.95rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 6; /* limit height in grid */
+    -webkit-box-orient: vertical;
+}
+
+/* List View Override */
+.notes-list-view .col {
+    width: 100% !important;
+}
+
+.notes-list-view .note-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.notes-list-view .note-card-content {
+    -webkit-line-clamp: 2; /* Less text in list view */
+}
+
+/* Editor Input Remove Focus Border */
+#editorTitle:focus, #editorContent:focus {
+    box-shadow: none;
+    outline: none;
+}
