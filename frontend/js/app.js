@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Toggle navigation based on JWT presence
   const checkAuth = () => {
-    const token = localStorage.getItem("token");
+    const token = Security.getToken();
     if (token) {
       authView.style.display = "none";
       dashboardView.style.display = "block";
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       const data = await res.json();
       if (res.ok) {
-        localStorage.setItem("token", data.token);
+        Security.storeToken(data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
         if (data.user.theme_preference) {
           document.documentElement.setAttribute(
@@ -227,7 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("logoutBtn")?.addEventListener("click", (e) => {
     e.preventDefault();
-    localStorage.removeItem("token");
+    Security.clearAuth();
     localStorage.removeItem("user");
     checkAuth();
   });
@@ -308,7 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
         notes = await res.json();
         renderNotes();
       } else if (res.status === 401) {
-        localStorage.removeItem("token");
+        Security.clearAuth();
         checkAuth();
       }
     } catch (err) {
